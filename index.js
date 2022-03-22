@@ -94,12 +94,20 @@ async function run() {
       const result = await orderedAppointments.insertOne(appointmentInfo);
       res.send(result);
     });
-      // get all appointments
-      app.get("/orderedAppointments", async (req, res) => {
-        const query = orderedAppointments.find({});
-        const result = await query.toArray();
-        res.send(result);
-      });
+    // get all appointments
+    app.get("/orderedAppointments", async (req, res) => {
+      const query = orderedAppointments.find({});
+      const result = await query.toArray();
+      res.send(result);
+    });
+    // delete Ordered appointments
+    app.delete("/orderedAppointments/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await orderedAppointments.deleteOne(query);
+      res.send(result);
+    });
+
 
     // get all appointments
     app.get("/allAppointments", async (req, res) => {
