@@ -107,6 +107,15 @@ async function run() {
       const result = await orderedAppointments.deleteOne(query);
       res.send(result);
     });
+    // delete appointments from manage appointments
+    app.put("/orderedAppointments/update/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = { $set: { status: "Booked" } };
+      const result = await testimonials.updateOne(filter, updateDoc, options);
+      res.json(result);
+    });
 
 
     // get all appointments
@@ -139,6 +148,7 @@ async function run() {
       const result = await appointments.deleteOne(query);
       res.send(result);
     });
+
 
     // delete reviews
     app.delete("/testimonials/:id", async (req, res) => {
