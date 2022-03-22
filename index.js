@@ -61,10 +61,10 @@ async function run() {
     });
 
     // get specific service
-    app.get("/services/:id", async (req, res) => {
+    app.get("/appointment/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
-      const food = await services.findOne(query);
+      const food = await appointments.findOne(query);
       res.send(food);
     });
 
