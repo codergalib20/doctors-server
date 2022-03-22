@@ -27,6 +27,7 @@ async function run() {
     const services = database.collection("services");
     const testimonials = database.collection("testimonials");
     const appointments = database.collection("appointments");
+    const orderedAppointments = database.collection("ordered_appointments");
     const users = database.collection("users");
     const discount = database.collection("discount");
 
@@ -87,6 +88,18 @@ async function run() {
       const result = await appointments.insertOne(appointmentInfo);
       res.send(result);
     });
+    // book an appointment
+    app.post("/orderedAppointments", async (req, res) => {
+      const appointmentInfo = req.body;
+      const result = await orderedAppointments.insertOne(appointmentInfo);
+      res.send(result);
+    });
+      // get all appointments
+      app.get("/orderedAppointments", async (req, res) => {
+        const query = orderedAppointments.find({});
+        const result = await query.toArray();
+        res.send(result);
+      });
 
     // get all appointments
     app.get("/allAppointments", async (req, res) => {
@@ -171,7 +184,7 @@ async function run() {
 
     // add admin role to database
     app.put("/users/admin", async (req, res) => {
-     const user = req.body;
+      const user = req.body;
       const filter = { email: user.email };
       const updateDoc = { $set: { role: "admin" } };
       const result = await users.updateOne(filter, updateDoc);
@@ -202,3 +215,5 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+// https://fierce-escarpment-92507.herokuapp.com/
