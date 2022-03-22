@@ -113,7 +113,7 @@ async function run() {
       const filter = { _id: ObjectId(id) };
       const options = { upsert: true };
       const updateDoc = { $set: { status: "Booked" } };
-      const result = await testimonials.updateOne(filter, updateDoc, options);
+      const result = await orderedAppointments.updateOne(filter, updateDoc, options);
       res.json(result);
     });
 
