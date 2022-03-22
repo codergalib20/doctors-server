@@ -129,7 +129,7 @@ async function run() {
     app.get("/userAppointments", async (req, res) => {
       const email = req.query.email;
       const query = { email: email };
-      const cursor = appointments.find(query);
+      const cursor = orderedAppointments.find(query);
       const result = await cursor.toArray();
       res.send(result);
     });
